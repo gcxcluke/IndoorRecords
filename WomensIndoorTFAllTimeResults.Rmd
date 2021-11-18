@@ -1,0 +1,557 @@
+---
+title: "Indoor Track & Field Program Records"
+author: "Georgetown College Track & Field"
+date: "Updated:`r Sys.time()`"
+output:
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+    css: style.css
+  pdf_document: default
+---
+
+```{r include=FALSE}
+require(knitr)
+require(mosaic)
+require(DT)
+require(rvest)
+require(XML2)
+
+
+scrpTFRRS <- function(url){
+
+  scraped <- read_html(url)
+
+  test1 <- scraped %>%
+    html_nodes("table") %>%
+    .[-1] %>%
+    html_table(fill = TRUE)
+
+  events <- html_nodes(scraped, '.custom-table-title')
+  events_txt <- html_text(events)
+  events_txt <- gsub("\n","",events_txt)
+  events_txt <- gsub("\t","",events_txt)
+  events_txt <- gsub(" ","",events_txt)
+
+  names(test1)=events_txt
+  return(test1)
+}
+
+listMerge <- function(list1,list2){
+  names=union(names(list1),names(list2))
+  print(names)
+  finalList=list(names)
+  for(i in 1:length(names)){
+    finalList[[names[i]]]=rbind(list1[[names[i]]],list2[[names[i]]])
+  }
+  return(finalList)
+}
+
+min2sec=function(time){
+  x=strsplit(time,":")
+  if(length(x[[1]])==2){
+    return(60*as.numeric(x[[1]][1])+as.numeric(x[[1]][2]))
+  } else if(length(x[[1]])==1){
+    return(as.numeric(x[[1]][1]))
+  } else{
+    return(60*60*as.numeric(x[[1]][1])+60*as.numeric(x[[1]][2])+as.numeric(x[[1]][3]))
+  }
+}
+
+```
+
+
+## Women's Indoor All Time Lists
+
+
+```{r, echo=FALSE, warning=FALSE, include=FALSE}
+url=c("https://www.tfrrs.org/all_performances/KY_college_f_Georgetown_KY.html?list_hnd=2330&season_hnd=429&printable=1&popup=1&width=800",
+      "https://www.tfrrs.org/all_performances/KY_college_f_Georgetown_KY.html?list_hnd=2120&season_hnd=388&printable=1&popup=1&width=800",
+      "https://www.tfrrs.org/all_performances/KY_college_f_Georgetown_KY.html?list_hnd=601&season_hnd=132&printable=1&popup=1&width=800",
+      "https://www.tfrrs.org/all_performances/KY_college_f_Georgetown_KY.html?list_hnd=2776&season_hnd=474&printable=1&popup=1&width=800")
+
+ITF2019=scrpTFRRS(url[1])
+ITF2018=scrpTFRRS(url[2])
+ITF2010=scrpTFRRS(url[3])
+ITF2020=scrpTFRRS(url[4])
+
+AllTimeList=listMerge(ITF2019,ITF2018)
+AllTimeListFinal=listMerge(AllTimeList,ITF2010)
+AllTimeListFinal=listMerge(AllTimeListFinal,ITF2020)
+```
+
+## 60 Meters
+
+### All Time Performances
+
+```{r echo=FALSE}
+
+datatable(AllTimeListFinal[["60Meters"]],rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'60Meters' %>% group_by(ATHLETE) %>% top_n(-1, TIME)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+## 200 Meters
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["200Meters"]],rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'200Meters' %>% group_by(ATHLETE) %>% top_n(-1, TIME)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+## 400 Meters
+
+### All Time Perfomaces
+
+```{r echo=FALSE}
+AllTimeListFinal$'400Meters'$TIME <- sapply(AllTimeListFinal$'400Meters'$TIME,min2sec)
+
+datatable(AllTimeListFinal[["400Meters"]],rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'400Meters' %>% group_by(ATHLETE) %>% top_n(-1, TIME)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+## 600 Meters
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["600Meters"]],rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'600Meters' %>% group_by(ATHLETE) %>% top_n(-1, TIME)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+## 800 Meters
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["800Meters"]],rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'800Meters' %>% group_by(ATHLETE) %>% top_n(-1, TIME)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+## 1000 Meters
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["1000Meters"]],rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'1000Meters' %>% group_by(ATHLETE) %>% top_n(-1, TIME)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+
+## 1 Mile
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["Mile"]],rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$Mile %>% group_by(ATHLETE) %>% top_n(-1, TIME)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+
+## 3000 Meters
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["3000Meters"]],rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'3000Meters' %>% group_by(ATHLETE) %>% top_n(-1, TIME)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+
+## 5000 Meters
+
+### All Time Performances
+
+No Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["5000Meters"]],rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+No Performances
+
+
+## 60 Meter Hurdles
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["60Hurdles"]],rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'60Hurdles' %>% group_by(ATHLETE) %>% top_n(-1, TIME)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+
+## 4x200m Relay
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["4x200Relay"]],rownames=FALSE,options = list(
+  order = list(list(0, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+
+
+## 4x400m Relay
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["4x400Relay"]],rownames=FALSE,options = list(
+  order = list(list(0, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+## DMR
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["DistanceMedleyRelay"]],rownames=FALSE,options = list(
+  order = list(list(0, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+
+## High Jump
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["HighJump"]],rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'HighJump' %>% group_by(ATHLETE) %>% top_n(1, MARK)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+
+## Long Jump
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["LongJump"]],rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'LongJump' %>% group_by(ATHLETE) %>% top_n(1, MARK)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+## Shot Put
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["ShotPut"]],rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'ShotPut' %>% group_by(ATHLETE) %>% top_n(1, MARK)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+## Weight Throw
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["WeightThrow"]],rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'WeightThrow' %>% group_by(ATHLETE) %>% top_n(1, MARK)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+## 4x800m Relay
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["4x800Relay"]],rownames=FALSE,options = list(
+  order = list(list(0, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+
+## Pole Vault
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["PoleVault"]],rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'PoleVault' %>% group_by(ATHLETE) %>% top_n(1, MARK)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
