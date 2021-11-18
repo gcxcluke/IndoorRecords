@@ -1,0 +1,61 @@
+table {
+   max-width: 95%;
+   border: 10px solid #ff6600;
+   text-align: center
+ }
+
+th {
+  background-color: #000000;
+    color: #ffffff;
+    width: 125px;
+}
+
+td {
+  background-color: #dcdcdc;
+  width: 125px;
+}
+
+
+
+#sidebar {
+  background: #FF6600;
+}
+
+
+#postamble {
+  background: #FF6600;
+  border-top:solid 10px black;
+}
+
+.title {
+  text-align: center;
+  color: #FF6600;
+  border:  5px solid darkgrey;
+  border-radius:  15px;
+  background-color:  black;
+  font-style:  italic;
+  font-weight:  800;
+  padding: 5px;
+  margin: 20px 0 20px 0;
+}
+
+#title {
+  background: black;
+}
+
+h1, #TOC>ul>li {
+  color: #ff6600;
+  background: black;
+}
+
+h2, h3, h4, h5, h6, legend {
+    color: grey;
+}
+
+#content h2 {
+    background-color: black;
+}
+
+#table-of-contents {
+  background: black;
+}
