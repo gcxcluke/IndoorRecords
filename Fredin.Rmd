@@ -40,13 +40,13 @@ print(xtable(r800),type='html',include.rownames=FALSE)
 ## 1500m records
 
 ```{r echo=FALSE, results='asis'}
-print(xtable(r800),type='html',include.rownames=FALSE)
+print(xtable(r1500),type='html',include.rownames=FALSE)
 
 ```
 
 ## Indoor 3000m records
 
 ```{r echo=FALSE, results='asis'}
-print(xtable(r800),type='html',include.rownames=FALSE)
+print(xtable(r3000),type='html',include.rownames=FALSE)
 
 ```
