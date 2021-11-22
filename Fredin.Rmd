@@ -1,0 +1,52 @@
+---
+title: "Outdoor Track & Field Mid-Distance Records"
+author: "Georgetown College Track & Field"
+date: "Updated:`r Sys.time()`"
+output:
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+    css: style.css
+  pdf_document: default
+---
+
+```{r include=FALSE}
+require(knitr)
+require(mosaic)
+require(DT)
+require(kableExtra)
+library(xtable)
+library(readxl)
+library(rJava)
+library(xlsx)
+library(googlesheets4)
+library(ggplot2)
+
+r800 <- read.csv('records800.csv',header=TRUE)
+
+r1500 <- read.csv('records1500.csv',header=TRUE)
+
+r3000 <- read.csv('records3000.csv',header=TRUE)
+```
+
+
+## 800m records
+
+```{r echo=FALSE, results='asis'}
+print(xtable(r800),type='html',include.rownames=FALSE)
+
+```
+
+## 1500m records
+
+```{r echo=FALSE, results='asis'}
+print(xtable(r800),type='html',include.rownames=FALSE)
+
+```
+
+## Indoor 3000m records
+
+```{r echo=FALSE, results='asis'}
+print(xtable(r800),type='html',include.rownames=FALSE)
+
+```
