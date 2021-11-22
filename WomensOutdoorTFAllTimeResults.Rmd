@@ -274,7 +274,18 @@ datatable(AllTimeListFinal[["5000Meters"]],rownames=FALSE,options = list(
 
 ### Rankings
 
-No Performances
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'5000Meters' %>% group_by(ATHLETE) %>% top_n(-1, TIME)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'asc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
 
 
 ## 60 Meter Hurdles
@@ -282,7 +293,7 @@ No Performances
 ### All Time Performances
 
 ```{r echo=FALSE}
-datatable(AllTimeListFinal[["60Hurdles"]],rownames=FALSE,options = list(
+datatable(AllTimeListFinal[["100Hurdles"]],rownames=FALSE,options = list(
   order = list(list(2, 'asc')),
   pageLength = 5,
   lengthMenu = c(5,10, 15, 20, 25),
@@ -295,7 +306,7 @@ datatable(AllTimeListFinal[["60Hurdles"]],rownames=FALSE,options = list(
 ```{r echo=FALSE}
 
 
-Rank <- AllTimeListFinal$'60Hurdles' %>% group_by(ATHLETE) %>% top_n(-1, TIME)
+Rank <- AllTimeListFinal$'100Hurdles' %>% group_by(ATHLETE) %>% top_n(-1, TIME)
 
 datatable(Rank,rownames=FALSE,options = list(
   order = list(list(2, 'asc')),
@@ -311,7 +322,7 @@ datatable(Rank,rownames=FALSE,options = list(
 ### All Time Performances
 
 ```{r echo=FALSE}
-datatable(AllTimeListFinal[["4x200Relay"]],rownames=FALSE,options = list(
+datatable(AllTimeListFinal[["4x100Relay"]],rownames=FALSE,options = list(
   order = list(list(0, 'asc')),
   pageLength = 5,
   lengthMenu = c(5,10, 15, 20, 25),
@@ -334,18 +345,6 @@ datatable(AllTimeListFinal[["4x400Relay"]],rownames=FALSE,options = list(
   filter = 'top')
 ```
 
-## DMR
-
-### All Time Performances
-
-```{r echo=FALSE}
-datatable(AllTimeListFinal[["DistanceMedleyRelay"]],rownames=FALSE,options = list(
-  order = list(list(0, 'asc')),
-  pageLength = 5,
-  lengthMenu = c(5,10, 15, 20, 25),
-  searchHighlight = TRUE),
-  filter = 'top')
-```
 
 
 ## High Jump
@@ -405,6 +404,34 @@ datatable(Rank,rownames=FALSE,options = list(
   filter = 'top')
 ```
 
+## Long Jump
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["TripleJump"]],rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'TripleJump' %>% group_by(ATHLETE) %>% top_n(1, MARK)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
 ## Shot Put
 
 ### All Time Performances
@@ -417,6 +444,7 @@ datatable(AllTimeListFinal[["ShotPut"]],rownames=FALSE,options = list(
   searchHighlight = TRUE),
   filter = 'top')
 ```
+
 ### Rankings
 
 ```{r echo=FALSE}
@@ -432,12 +460,12 @@ datatable(Rank,rownames=FALSE,options = list(
   filter = 'top')
 ```
 
-## Weight Throw
+## Discus
 
 ### All Time Performances
 
 ```{r echo=FALSE}
-datatable(AllTimeListFinal[["WeightThrow"]],rownames=FALSE,options = list(
+datatable(AllTimeListFinal[["Discus"]],rownames=FALSE,options = list(
   order = list(list(2, 'desc')),
   pageLength = 5,
   lengthMenu = c(5,10, 15, 20, 25),
@@ -450,7 +478,91 @@ datatable(AllTimeListFinal[["WeightThrow"]],rownames=FALSE,options = list(
 ```{r echo=FALSE}
 
 
-Rank <- AllTimeListFinal$'WeightThrow' %>% group_by(ATHLETE) %>% top_n(1, MARK)
+Rank <- AllTimeListFinal$'Discus' %>% group_by(ATHLETE) %>% top_n(1, MARK)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+## Hammer
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["Hammer"]],rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'Hammer' %>% group_by(ATHLETE) %>% top_n(1, MARK)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+## Hammer
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["Hammer"]],rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'Hammer' %>% group_by(ATHLETE) %>% top_n(1, MARK)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+## Javelin
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["Javelin"]],rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'Javelin' %>% group_by(ATHLETE) %>% top_n(1, MARK)
 
 datatable(Rank,rownames=FALSE,options = list(
   order = list(list(2, 'desc')),
@@ -493,6 +605,34 @@ datatable(AllTimeListFinal[["PoleVault"]],rownames=FALSE,options = list(
 
 
 Rank <- AllTimeListFinal$'PoleVault' %>% group_by(ATHLETE) %>% top_n(1, MARK)
+
+datatable(Rank,rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+## 10,000 Meters
+
+### All Time Performances
+
+```{r echo=FALSE}
+datatable(AllTimeListFinal[["10,000Meters"]],rownames=FALSE,options = list(
+  order = list(list(2, 'desc')),
+  pageLength = 5,
+  lengthMenu = c(5,10, 15, 20, 25),
+  searchHighlight = TRUE),
+  filter = 'top')
+```
+
+### Rankings
+
+```{r echo=FALSE}
+
+
+Rank <- AllTimeListFinal$'10,000Meters' %>% group_by(ATHLETE) %>% top_n(1, TIME)
 
 datatable(Rank,rownames=FALSE,options = list(
   order = list(list(2, 'desc')),
