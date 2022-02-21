@@ -68,16 +68,19 @@ min2sec=function(time){
 url=c("https://www.tfrrs.org/all_performances/KY_college_m_Georgetown_KY.html?list_hnd=2330&season_hnd=429&printable=1&popup=1&width=800",
       "https://www.tfrrs.org/all_performances/KY_college_m_Georgetown_KY.html?list_hnd=2120&season_hnd=388&printable=1&popup=1&width=800",
       "https://www.tfrrs.org/all_performances/KY_college_m_Georgetown_KY.html?list_hnd=601&season_hnd=132&printable=1&popup=1&width=800",
-      "https://www.tfrrs.org/all_performances/KY_college_m_Georgetown_KY.html?list_hnd=2776&season_hnd=474&printable=1&popup=1&width=800")
+      "https://www.tfrrs.org/all_performances/KY_college_m_Georgetown_KY.html?list_hnd=2776&season_hnd=474&printable=1&popup=1&width=800",
+      "https://www.tfrrs.org/all_performances/KY_college_m_Georgetown_KY.html?list_hnd=3501&season_hnd=548&printable=1&popup=1&width=800")
 
 ITF2019=scrpTFRRS(url[1])
 ITF2018=scrpTFRRS(url[2])
 ITF2010=scrpTFRRS(url[3])
 ITF2020=scrpTFRRS(url[4])
+ITF2022=scrpTFRRS(url[5])
 
 AllTimeList=listMerge(ITF2019,ITF2018)
 AllTimeListFinal=listMerge(AllTimeList,ITF2010)
 AllTimeListFinal=listMerge(AllTimeListFinal,ITF2020)
+AllTimeListFinal=listMerge(AllTimeListFinal,ITF2022)
 ```
 
 ## 60 Meters
